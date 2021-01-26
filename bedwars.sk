@@ -1,0 +1,1041 @@
+on load:
+    set {red} to location at -88, 66, 26 in world "world"
+    set {blue} to location at 94, 66, -26 in world "world"
+    set {green} to location at 29, 66, -91 in world "world"
+    set {yellow} to location at -23, 66, 91 in world "world"
+    set {diamond1} to location at 55, 68, -51 in world "world"
+    set {diamond2} to location at -49, 68, 52 in world "world"
+    set {emmy1} to location at -7, 66, 14 in world "world"
+    set {emmy2} to location at 13, 66, -14 in world "world"
+    broadcast "&a[Bedwars] Reloaded!"
+
+on break of green bed:
+    if {game} is true:
+        if {green.alive} is false:
+            cancel event
+            send "&cThis team doesn't exist!" to player
+            stop
+        cancel event
+        set event-block to air
+        execute console command "/title %{green.player}% title ""&cBED DESTROYED"" "
+        execute console command "/title %{green.player}% subtitle ""&cYou will no longer respawn!"" "
+        broadcast "&cBED DESTRUCTION - - - - - - - -"
+        broadcast "&aGreen Bed &chas been destroyed by %player%&c!"
+        execute console command "/playsound minecraft:entity.wither.death ambient %{green.player}% ~ ~ ~ 10 1"
+        set {green.respawn} to false
+
+on break of blue bed:
+    if {game} is true:
+        if {blue.alive} is false:
+            cancel event
+            send "&cThis team doesn't exist!" to player
+            stop
+        cancel event
+        set event-block to air
+        execute console command "/title %{blue.player}% title ""&cBED DESTROYED"" "
+        execute console command "/title %{blue.player}% subtitle ""&cYou will no longer respawn!"" "
+        broadcast "&cBED DESTRUCTION - - - - - - - -"
+        broadcast "&1Blue &chas been destroyed by %player%&c!"
+        execute console command "/playsound minecraft:entity.wither.death ambient %{blue.player}% ~ ~ ~ 10 1"
+        set {blue.respawn} to false
+
+on break of red bed:
+    if {game} is true:
+        if {red.alive} is false:
+            cancel event
+            send "&cThis team doesn't exist!" to player
+            stop
+        cancel event
+        set event-block to air
+        execute console command "/title %{red.player}% title ""&cBED DESTROYED"" "
+        execute console command "/title %{red.player}% subtitle ""&cYou will no longer respawn!"" "
+        broadcast "&cBED DESTRUCTION - - - - - - - -"
+        broadcast "&4Red Bed &chas been destroyed by %player%&c!"
+        execute console command "/playsound minecraft:entity.wither.death ambient %{red.player}% ~ ~ ~ 10 1"
+        set {red.respawn} to false
+
+on break of yellow bed:
+    if {game} is true:
+        if {yellow.alive} is false:
+            cancel event
+            send "&cThis team doesn't exist!" to player
+            stop
+        cancel event
+        set event-block to air
+        execute console command "/title %{yellow.player}% title ""&cBED DESTROYED"" "
+        execute console command "/title %{yellow.player}% subtitle ""&cYou will no longer respawn!"" "
+        broadcast "&cBED DESTRUCTION - - - - - - - -"
+        broadcast "&eYellow Bed &chas been destroyed by %player%&c!"
+        execute console command "/playsound minecraft:entity.wither.death ambient %{yellow.player}% ~ ~ ~ 10 1"
+        set {yellow.respawn} to false
+
+on death:
+    execute console command "/gamerule doImmediateRespawn true"
+    if {yellow.player} = player's name:
+        if {yellow.respawn} is true:
+            broadcast "&a%player%&a died."
+            set gamemode of player to Spectator
+            send title "&aYou will respawn in 5 seconds!" to player
+            wait 5 seconds
+            teleport player to {yellow}
+            send title "&aRespawned!" to player
+            set gamemode of player to Survival
+        else:
+            set gamemode of player to Spectator
+            broadcast "&c&l%player% &c&ldied. Final Death!"
+            set player's gamemode to Spectator
+            send title "&cGAME OVER" to player
+            set {yellow.alive} to false
+            teleport {yellow.player} to {yellow}
+    if {red.player} = player's name:
+        if {red.respawn} is true:
+            broadcast "&a%player%&a died."
+            set gamemode of player to Spectator
+            send title "&aYou will respawn in 5 seconds!" to player
+            wait 5 seconds
+            teleport player to {red}
+            send title "&aRespawned!" to player
+            set gamemode of player to Survival
+        else:
+            set gamemode of player to Spectator
+            broadcast "&c&l%player% &c&ldied. Final Death!"
+            send title "&cGAME OVER" to player
+            set {red.alive} to false
+            teleport {red.player} to {red}
+    if {blue.player} = player's name:
+        if {blue.respawn} is true:
+            broadcast "&a%player%&a died."
+            set gamemode of player to Spectator
+            send title "&aYou will respawn in 5 seconds!" to player
+            wait 5 seconds
+            teleport player to {blue}
+            send title "&aRespawned!" to player
+            set gamemode of player to Survival
+        else:
+            set gamemode of player to Spectator
+            broadcast "&c&l%player% &c&ldied. Final Death!"
+            send title "&cGAME OVER" to player
+            set {blue.alive} to false
+            teleport {blue.player} to {blue}
+    if {green.player} = player's name:
+        if {green.respawn} is true:
+            broadcast "&a%player%&a died."
+            set gamemode of player to Spectator
+            send title "&aYou will respawn in 5 seconds!" to player
+            wait 5 seconds
+            teleport player to {green}
+            send title "&aRespawned!" to player
+            set gamemode of player to Survival
+        else:
+            set gamemode of player to Spectator
+            broadcast "&c&l%player% &c&ldied. Final Death!"
+            send title "&cGAME OVER" to player
+            set {green.alive} to false
+            teleport {green.player} to {green}
+        
+
+command /resetvariables:
+    permission: op
+    trigger:
+        clear {block::*}
+        set {game} to false
+        clear {game.queue}
+        clear {join::*}
+        clear {didjoin::*}
+        clear {yellow.player}
+        clear {blue.player}
+        clear {red.player}
+        clear {green.player}
+        clear {em1}
+        clear {em2}
+        clear {dia1}
+        clear {dia2}
+        set {yellow.respawn} to true
+        set {blue.respawn} to true
+        set {red.respawn} to true
+        set {green.respawn} to true
+        send "done. The respawn locations are not changed!" to player
+
+on right click on any sign:
+    cancel event
+    make player execute command "/usershop"
+
+command /usershop:
+    trigger:
+        open virtual chest inventory with size 5 named "&c&lITEM SHOP" to player
+        format gui slot (integers between 0 and 26) of player with lime stained glass pane named " "
+        format gui slot (integers between 27 and 35) of player with red stained glass pane named " "
+        format gui slot 36 of player with white wool named "&aBlocks" to run:
+            format gui slot (integers between 0 and 26) of player with lime stained glass pane named " "
+            format gui slot 0 of player with 16 white wool with lore "4 Iron" to run:
+                if player has 4 iron ingot:
+                    remove 4 iron ingot from player's inventory
+                    {green.player} contains player's name:
+                        give player 16 lime wool
+                        stop
+                    {red.player} contains player's name:
+                        give player 16 red wool
+                        stop
+                    {blue.player} contains player's name:
+                        give player 16 blue wool
+                        stop
+                    {yellow.player} contains player's name:
+                        give player 16 yellow wool
+                        stop
+                    else:
+                        give player 16 white wool
+                    stop
+                else:
+                    send "&cYou do not have enough iron!" to player
+            format gui slot 1 of player with 12 white terracotta with lore "4 Iron" to run:
+                if player has 12 iron ingot:
+                    remove 12 iron ingot from player's inventory
+                    {green.player} contains player's name:
+                        give player 16 lime terracotta
+                    {red.player} contains player's name:
+                        give player 16 red terracotta
+                    {blue.player} contains player's name:
+                        give player 16 blue terracotta
+                    {yellow.player} contains player's name:
+                        give player 16 yellow terracotta
+                    else:
+                        give player 16 white terracotta
+                    stop
+                else:
+                    send "&cYou do not have enough iron!" to player
+            format gui slot 2 of player with 8 oak planks with lore "4 Gold" to run:
+                if player has 4 gold ingot:
+                    remove 4 gold ingot from player's inventory
+                    give player 8 oak planks
+                    stop
+                else:
+                    send "&cYou do not have enough gold!" to player
+            format gui slot 4 of player with 4 obsidian with lore "4 Gold" to run:
+                if player has 4 gold ingot:
+                    remove 4 gold ingot from player's inventory
+                    give player 4 obsidian
+                    stop
+                else:
+                    send "&cYou do not have enough emeralds!" to player
+            format gui slot 3 of player with 12 end stone with lore "24 Iron" to run:
+                if player has 12 iron ingot:
+                    remove 12 iron ingot from player's inventory
+                    give player 12 end stone
+                    stop
+                else:
+                    send "&cYou do not have enough iron!" to player
+        format gui slot 37 of player with diamond sword named "&aWeapons" to run:
+            format gui slot (integers between 0 and 26) of player with lime stained glass pane named " "
+            format gui slot 0 of player with golden apple with lore "3 Gold" to run:
+                if player has 3 gold ingot:
+                    remove 3 gold ingot from player's inventory
+                    give player golden apple
+                    stop
+                else:
+                    send "&cYou do not have enough gold!" to player
+            format gui slot 1 of player with wooden sword with lore "4 iron" to run:
+                if player has 4 iron ingot:
+                    remove 4 iron ingot from player's inventory
+                    give player wooden sword
+                    stop
+                else:
+                    send "&cYou do not have enough iron!" to player
+            format gui slot 2 of player with stone sword with lore "10 Iron" to run:
+                if player has 10 iron ingot:
+                    remove 10 iron ingot from player's inventory
+                    give player stone sword
+                    stop
+                else:
+                    send "&cYou do not have enough iron!" to player
+            format gui slot 3 of player with iron sword with lore "7 Gold" to run:
+                if player has 7 gold ingot:
+                    remove 7 gold ingot from player's inventory
+                    give player iron sword
+                    stop
+                else:
+                    send "&cYou do not have enough gold!" to player
+            format gui slot 4 of player with diamond sword with lore "3 Emeralds" to run:
+                if player has 3 emerald:
+                    remove 3 emerald from player's inventory
+                    give player diamond sword
+                    stop
+                else:
+                    send "&cYou do not have enough emeralds!" to player
+            format gui slot 5 of player with stick of knockback 2 with lore "6 Gold" to run:
+                if player has 6 gold ingot:
+                    remove 6 gold ingot from player's inventory
+                    give player stick of knockback 2
+                    stop
+                else:
+                    send "&cYou do not have enough gold!" to player
+            format gui slot 6 of player with bow with lore "12 Gold" to run:
+                if player has 12 gold ingot:
+                    remove 12 gold ingot from player's inventory
+                    give player bow
+                    stop
+                else:
+                    send "&cYou do not have enough gold!" to player
+            format gui slot 7 of player with bow of power 1 with lore "24 Gold" to run:
+                if player has 24 gold ingot:
+                    remove 24 gold ingot from player's inventory
+                    give player bow of power 1
+                    stop
+                else:
+                    send "&cYou do not have enough gold!" to player
+            format gui slot 8 of player with bow of power 1, punch 1 with lore "2 Emeralds" to run:
+                if player has 2 emerald:
+                    remove 2 emerald from player's inventory
+                    give player bow of power 1, punch 1
+                    stop
+                else:
+                    send "&cYou do not have enough emeralds!" to player
+            format gui slot 9 of player with bow of power 2, punch 1 with lore "6 Emeralds" to run:
+                if player has 6 emeralds:
+                    remove 6 emerald from player's inventory
+                    give player bow of power 2, punch 1
+                    stop
+                else:
+                    send "&cYou do not have enough emeralds!" to player
+            format gui slot 10 of player with 8 arrow with lore "2 Gold" to run:
+                if player has 2 gold ingot:
+                    remove 2 gold ingot from player's inventory
+                    give player 8 arrow
+                    stop
+                else:
+                    send "&cYou do not have enough gold!" to player
+            format gui slot 11 of player with fire charge named "Fireball" with lore "30 Iron" to run:
+                if player has 30 iron ingot:
+                    remove 30 iron ingot from player's inventory
+                    give player 1 fire charge named "Fireball"
+                    stop
+                else:
+                    send "&cYou do not have enough iron!" to player
+        format gui slot 38 of player with diamond pickaxe named "&aTools" to run:
+            format gui slot (integers between 0 and 26) of player with lime stained glass pane named " "
+            format gui slot 0 of player with wooden pickaxe with lore "10 iron" to run:
+                if player has 10 iron ingot:
+                    remove 10 iron ingot from player's inventory
+                    give player wooden pickaxe
+                    stop
+                else:
+                    send "&cYou do not have enough iron!" to player
+            format gui slot 1 of player with wooden axe with lore "10 iron" to run:
+                if player has 10 iron ingot:
+                    remove 10 iron ingot from player's inventory
+                    give player wooden axe
+                    stop
+                else:
+                    send "&cYou do not have enough iron!" to player
+            format gui slot 2 of player with stone pickaxe with lore "20 Iron" to run:
+                if player has 20 iron ingot:
+                    remove 20 iron ingot from player's inventory
+                    give player stone pickaxe
+                    stop
+                else:
+                    send "&cYou do not have enough iron!" to player
+            format gui slot 3 of player with stone axe with lore "20 Iron" to run:
+                if player has 20 iron ingot:
+                    remove 20 iron ingot from player's inventory
+                    give player stone axe
+                    stop
+                else:
+                    send "&cYou do not have enough iron!" to player
+            format gui slot 4 of player with iron pickaxe with lore "15 Gold" to run:
+                if player has 15 gold ingot:
+                    remove 15 gold ingot from player's inventory
+                    give player iron pickaxe
+                    stop
+                else:
+                    send "&cYou do not have enough gold!" to player
+            format gui slot 5 of player with iron axe with lore "15 Gold" to run:
+                if player has 15 gold ingot:
+                    remove 15 gold ingot from player's inventory
+                    give player iron axe
+                    stop
+                else:
+                    send "&cYou do not have enough gold!" to player
+            format gui slot 6 of player with diamond pickaxe with lore "2 Emeralds" to run:
+                if player has 2 emerald:
+                    remove 2 emerald from player's inventory
+                    give player diamond pickaxe
+                    stop
+                else:
+                    send "&cYou do not have enough emeralds!" to player
+            format gui slot 7 of player with diamond axe with lore "2 Emeralds" to run:
+                if player has 2 emerald:
+                    remove 2 emerald from player's inventory
+                    give player diamond axe
+                    stop
+                else:
+                    send "&cYou do not have enough emeralds!" to player
+            format gui slot 8 of player with shears with lore "15 iron" to run:
+                if player has 15 iron ingot:
+                    remove 15 iron ingot from player's inventory
+                    give player shears
+                    stop
+                else:
+                    send "&cYou do not have enough iron!" to player
+            format gui slot 9 of player with tnt with lore "6 Gold" to run:
+                if player has 6 gold ingot:
+                    remove 6 gold ingot from player's inventory
+                    give player tnt
+                    stop
+                else:
+                    send "&cYou do not have enough gold!" to player
+            format gui slot 10 of player with water bucket with lore "5 Gold" to run:
+                if player has 5 gold ingot:
+                    remove 5 gold ingot from player's inventory
+                    give player water bucket
+                    stop
+                else:
+                    send "&cYou do not have enough gold!" to player
+        format gui slot 39 of player with diamond chestplate named "&aArmor" to run:
+            format gui slot (integers between 0 and 26) of player with lime stained glass pane named " "
+            format gui slot 0 of player with leather chestplate with lore "15 Iron" to run:
+                if player has 15 iron ingot:
+                    remove 15 iron ingot from player's inventory
+                    equip player with leather chestplate
+                    stop
+                else:
+                    send "&cYou do not have enough iron!" to player
+            format gui slot 1 of player with leather leggings with lore "15 Iron" to run:
+                if player has 15 iron ingot:
+                    remove 15 iron ingot from player's inventory
+                    equip player with leather leggings
+                    stop
+                else:
+                    send "&cYou do not have enough iron!" to player
+            format gui slot 2 of player with chainmail chestplate with lore "25 Iron" to run:
+                if player has 25 iron ingot:
+                    remove 25 iron ingot from player's inventory
+                    equip player with chainmail chestplate
+                    stop
+                else:
+                    send "&cYou do not have enough iron!" to player
+            format gui slot 3 of player with chainmail leggings with lore "25 Iron" to run:
+                if player has 25 iron ingot:
+                    remove 25 iron ingot from player's inventory
+                    equip player with chainmail leggings
+                    stop
+                else:
+                    send "&cYou do not have enough iron!" to player
+            format gui slot 4 of player with iron chestplate with lore "6 Gold" to run:
+                if player has 6 gold ingot:
+                    remove 6 gold ingot from player's inventory
+                    equip player with iron chestplate
+                    stop
+                else:
+                    send "&cYou do not have enough gold!" to player
+            format gui slot 5 of player with iron leggings with lore "6 Gold" to run:
+                if player has 6 Gold ingot:
+                    remove 6 Gold ingot from player's inventory
+                    equip player with iron leggings
+                    stop
+                else:
+                    send "&cYou do not have enough gold!" to player
+            format gui slot 6 of player with diamond chestplate with lore "4 Emerald" to run:
+                if player has 4 Emerald:
+                    remove 4 Emerald from player's inventory
+                    equip player with diamond chestplate
+                    stop
+                else:
+                    send "&cYou do not have enough emeralds!" to player
+            format gui slot 7 of player with diamond leggings with lore "2 Emerald" to run:
+                if player has 2 Emerald:
+                    remove 2 Emerald from player's inventory
+                    equip player with diamond leggings
+                    stop
+                else:
+                    send "&cYou do not have enough emeralds!" to player
+            format gui slot 8 of player with netherite chestplate with lore "6 Emerald" to run:
+                if player has 6 Emerald:
+                    remove 6 Emerald from player's inventory
+                    equip player with netherite chestplate
+                    stop
+                else:
+                    send "&cYou do not have enough emeralds!" to player
+        format gui slot 40 of player with ender pearl named "&aMisc." to run:
+            format gui slot (integers between 0 and 26) of player with lime stained glass pane named " "
+            format gui slot 0 of player with potion named "Speed Potion" with lore "1 Emerald" to run:
+                if player has 1 emerald:
+                    remove 1 emerald from player's inventory
+                    execute console command "/minecraft:give %player% minecraft:potion{CustomPotionEffects:[{Id:1,Amplifier:1,Duration:900}],CustomPotionColor:16746578,display:{Name:""\""Speed Potion\""""}}"
+                else:
+                    send "&cYou do not have enough emeralds!" to player
+            format gui slot 1 of player with potion named "Invis Potion" with lore "2 Emeralds" to run:
+                if player has 2 emerald:
+                    remove 2 emerald from player's inventory
+                    execute console command "/minecraft:give %player% minecraft:potion{CustomPotionEffects:[{Id:14,Duration:600}],CustomPotionColor:13023700,display:{Name:""\""Invisibility Potion\""""}}"
+                else:
+                    send "&cYou do not have enough emeralds!" to player
+            format gui slot 2 of player with potion named "Haste Potion" with lore "1 Emerald" to run:
+                if player has 1 emerald:
+                    remove 1 emerald from player
+                    execute console command "/minecraft:give %player% minecraft:potion{CustomPotionEffects:[{Id:3,Duration:1200}],CustomPotionColor:11010128,display:{Name:""\""Haste Potion\""""}}"
+                else:
+                    send "&cYou do not have enough emeralds!" to player
+            format gui slot 3 of player with potion named "Jump Potion" with lore "1 Emerald" to run:
+                if player has 1 emerald:
+                    remove 1 emerald from player
+                    execute console command "/minecraft:give %player% minecraft:potion{CustomPotionEffects:[{Id:8,Amplifier:1,Duration:900}],CustomPotionColor:5046026,display:{Name:""\""Jump Boost Potion\""""}}"
+                else:
+                    send "&cYou do not have enough emeralds!" to player
+            format gui slot 4 of player with ender pearl with lore "4 Emeralds" to run:
+                if player has 4 emerald:
+                    remove 4 emerald from player's inventory
+                    give player ender pearl
+                else:
+                    send "&cYou do not have enough emeralds!" to player
+        format gui slot (integers between 41 and 44) of player with red stained glass pane named " "
+
+command /upgradeshop:
+    trigger:
+        send "&aUpgrade Shop Coming Soon!" to player
+
+on hunger meter change:
+    set player's food level to 10
+
+command /spawn:
+    trigger:
+        teleport player to {spawn}
+
+every second in "world":
+    if {game} is true:
+        if {yellow.alive} is false:
+            if {blue.alive} is false:
+                if {green.alive} is false:
+                    broadcast " "
+                    broadcast "&aGAME OVER - - - - - - - - - -"
+                    broadcast "&b&lWINNER - &4&l%{red.player}%"
+                    broadcast " "
+                    send "&aReward: +5 Tokens" to {red.player}
+                    broadcast "&aParticipation Reward: 1 Token"
+                    add 1 to {bal.%{yellow.player}%}
+                    add 1 to {bal.%{green.player}%}
+                    add 1 to {bal.%{blue.player}%}
+                    add 6 to {bal.%{red.player}%}
+                    broadcast " "
+                    execute console command "/resetvariables"
+                    loop all players:
+                        clear loop-player's inventory
+                    broadcast "&c&lRESETTING WORLD IN 5 SECONDS..."
+                    wait 5 seconds
+                    kick all players due to "World Resetting. Rejoin!"
+                    wait 1 seconds
+                    execute console command "/mv delete world"
+                    wait 10 ticks
+                    execute console command "/mvconfirm"
+                    wait 1 second
+                    execute console command "/mv clone template world"
+                    set {spawn} to location 0, 120, 0 in world "world"
+        if {red.alive} is false:
+            if {blue.alive} is false:
+                if {green.alive} is false:
+                    broadcast " "
+                    broadcast "&aGAME OVER - - - - - - - - - -"
+                    broadcast "&b&lWINNER - &e&l%{yellow.player}%"
+                    broadcast " "
+                    send "&aReward: +5 Tokens" to {yellow.player}
+                    broadcast "&aParticipation Reward: 1 Token"
+                    add 6 to {bal.%{yellow.player}%}
+                    add 1 to {bal.%{green.player}%}
+                    add 1 to {bal.%{blue.player}%}
+                    add 1 to {bal.%{red.player}%}
+                    broadcast " "
+                    execute console command "/resetvariables"
+                    loop all players:
+                        clear loop-player's inventory
+                    broadcast "&c&lRESETTING WORLD IN 5 SECONDS..."
+                    wait 5 seconds
+                    kick all players due to "World Resetting. Rejoin!"
+                    wait 1 seconds
+                    execute console command "/mv delete world"
+                    wait 10 ticks
+                    execute console command "/mvconfirm"
+                    wait 1 second
+                    execute console command "/mv clone template world"
+        if {yellow.alive} is false:
+            if {red.alive} is false:
+                if {green.alive} is false:
+                    broadcast " "
+                    broadcast "&aGAME OVER - - - - - - - - - -"
+                    broadcast "&b&lWINNER - &9&l%{blue.player}%"
+                    broadcast " "
+                    send "&aReward: +5 Tokens" to {blue.player}
+                    broadcast "&aParticipation Reward: 1 Token"
+                    add 1 to {bal.%{yellow.player}%}
+                    add 1 to {bal.%{green.player}%}
+                    add 6 to {bal.%{blue.player}%}
+                    add 1 to {bal.%{red.player}%}
+                    broadcast " "
+                    execute console command "/resetvariables"
+                    loop all players:
+                        clear loop-player's inventory
+                    broadcast "&c&lRESETTING WORLD IN 5 SECONDS..."
+                    wait 5 seconds
+                    kick all players due to "World Resetting. Rejoin!"
+                    wait 1 seconds
+                    execute console command "/mv delete world"
+                    wait 10 ticks
+                    execute console command "/mvconfirm"
+                    wait 1 second
+                    execute console command "/mv clone template world"
+        if {yellow.alive} is false:
+            if {blue.alive} is false:
+                if {red.alive} is false:
+                    broadcast " "
+                    broadcast "&aGAME OVER - - - - - - - - - -"
+                    broadcast "&b&lWINNER - &a&l%{green.player}%"
+                    broadcast " "
+                    send "&aReward: +5 Tokens" to {green.player}
+                    broadcast "&aParticipation Reward: 1 Token"
+                    add 1 to {bal.%{yellow.player}%}
+                    add 6 to {bal.%{green.player}%}
+                    add 1 to {bal.%{blue.player}%}
+                    add 1 to {bal.%{red.player}%}
+                    broadcast " "
+                    execute console command "/resetvariables"
+                    loop all players:
+                        clear loop-player's inventory
+                    broadcast "&c&lRESETTING WORLD IN 5 SECONDS..."
+                    wait 5 seconds
+                    kick all players due to "World Resetting. Rejoin!"
+                    wait 1 seconds
+                    execute console command "/mv delete world"
+                    wait 10 ticks
+                    execute console command "/mvconfirm"
+                    wait 1 second
+                    execute console command "/mv clone template world"
+        if {yellow.player} is not set:
+            set {yellow.alive} to false
+        if {red.player} is not set:
+            set {red.alive} to false
+        if {green.player} is not set:
+            set {green.alive} to false
+        if {blue.player} is not set:
+            set {blue.alive} to false
+    {game} is true:
+        {yellow.player} is not set:
+            set {yellow.alive} to false
+        {red.player} is not set:
+            set {red.alive} to false
+        {blue.player} is not set:
+            set {blue.alive} to false
+        {green.player} is not set:
+            set {green.alive} to false
+
+every 3 second:
+    if {game} is true:
+        drop 1 iron ingot at {yellow}
+        drop 1 iron ingot at {blue}
+        drop 1 iron ingot at {red}
+        drop 1 iron ingot at {green}
+
+every 12 seconds:
+    if {game} is true:
+        drop 1 gold ingot at {yellow}
+        drop 1 gold ingot at {red}
+        drop 1 gold ingot at {blue}
+        drop 1 gold ingot at {green}
+
+every 60 seconds:
+    {game} is true:
+        {dia1} is not set:
+            drop 1 diamond at {diamond1}
+            drop 1 diamond at {diamond2}
+
+every 40 seconds:
+    if {game} is true:
+        {dia1} is true:
+            {em2} is not set:
+                drop 1 diamond at {diamond1}
+                drop 1 diamond at {diamond2}
+
+every 25 seconds:
+    {game} is true:
+        {dia2} is true:
+            drop 1 diamond at {diamond1}
+            drop 1 diamond at {diamond2}
+
+every 80 seconds:
+    {game} is true:
+        {em1} is not set:
+            drop 1 emerald at {emmy1}
+            drop 1 diamond at {emmy2}
+
+every 60 seconds:
+    if {game} is true:
+        {em1} is true:
+            {em2} is not set:
+                drop 1 emerald at {emmy1}
+                drop 1 diamond at {emmy2}
+
+every 45 seconds:
+    {game} is true:
+        {em2} is true:
+            drop 1 emerald at {emmy1}
+            drop 1 diamond at {emmy2}
+
+on join:
+    teleport player to location 18, 75, -21 in world "spawn"
+    set player's gamemode to Survival
+    set player's flight mode to false
+    remove all nether stars from player's inventory
+    set slot 8 of player to nether star named "&aMenu&7 [RIGHT CLICK]"
+
+command /bedwars:
+    trigger:
+        {didjoin.%player%} is true:
+            send "&aYou have already joined the queue for bedwars!" to player
+            stop
+        {game.queue} is more than 3:
+            send "&cQueue Full!" to player
+            stop
+        {didjoin.%player%} is not true
+        set {didjoin.%player%} to true
+        set {join.%player%} to player's name
+        add 1 to {game.queue}
+        if {game.queue} is less than 2:
+            broadcast "&a%player%&a has joined the queue for bedwars! If you wish to join, type &l/bedwars&r&a!"
+            send "&eIf you want to leave the queue, please type /leavebedwars!" to player
+        if {game.queue} is more than 1:
+            broadcast "&a%player%&a has joined the queue for bedwars! If you wish to join, type &l/bedwars&r&a! &6[%{game.queue}%&6/4]"
+            send "&eIf you want to leave the queue, please type /leavebedwars!" to player
+            if {game.queue} is 2:
+                broadcast "&a&lThe game will move forward in 20 seconds if nobody leaves!"
+                wait 10 seconds
+                broadcast "&a10 seconds!"
+                wait 5 seconds
+                broadcast "&a&l5..." 
+                wait 1 second
+                broadcast "&a&l4..." 
+                wait 1 second
+                broadcast "&a&l3..." 
+                wait 1 second
+                broadcast "&a&l2..." 
+                wait 1 second
+                broadcast "&a&l1..." 
+                wait 1 second
+                if {game.queue} is more than 1:
+                    set {choose} to true
+                    broadcast "&aChoose your team! You have 20 seconds."
+                    broadcast "&aClick on your team!"
+                    send formatted "<cmd:/joinred> &4&lRed    <cmd:/joinblue> &1&lBlue    <cmd:/joingreen> &2&lGreen    <cmd:/joinyellow> &e&lYellow" to all players
+                    wait 10 seconds
+                    broadcast "&aGame starts in 10 seconds!"
+                    wait 5 seconds
+                    broadcast "&a&lGAME STARTS IN 5..." 
+                    wait 1 second
+                    broadcast "&a&lGAME STARTS IN 4..." 
+                    wait 1 second
+                    broadcast "&a&lGAME STARTS IN 3..." 
+                    wait 1 second
+                    broadcast "&a&lGAME STARTS IN 2..." 
+                    wait 1 second
+                    broadcast "&a&lGAME STARTS IN 1..." 
+                    wait 1 second
+                    set {choose} to false
+                    set {game} to true
+                    set {respawn.red} to true
+                    set {respawn.green} to true
+                    set {respawn.blue} to true
+                    set {respawn.yellow} to true
+                    set {gamecount} to 0
+                    clear {diamondcount1}
+                    clear {emcount1}
+                    clear {diamondcount2}
+                    clear {emcount2}
+                    clear {didjoin::*}
+                    broadcast "&a&lThe game has begun!"
+                    wipe player sidebar
+                    loop all players:
+                        set {diastatus} to "&bEvery 60 Seconds"
+                        set {emstatus} to "&aEvery 80 Seconds"
+                        set name of sidebar of loop-player to "&e&lBEDWARS"
+                        set score "&aPlayer: %player%" in sidebar of loop-player to 7
+                        set score "&bDiamonds Spawn:" in sidebar of loop-players to 6
+                        set score "&b%{diastatus}%" in sidebar of loop-player to 5
+                        set score "&aEmeralds Spawn:" in sidebar of loop-player to 4
+                        set score "&a%{emstatus}%" in sidebar of loop-player to 3
+                        set {timer} to 100
+                        set {upgrade} to "&bDiamond I"
+                        set score "&dNext Upgrade:" in sidebar of loop-player to 2
+                        set score "&d%{upgrade}%&d: %{timer}%" in sidebar of loop-player to 1
+                        stop
+                else:
+                    send "&cThere aren't enough players! Start Cancelled."
+
+every second:
+    {game} is true:
+        loop all players:
+            delete score "&d%{upgrade}%&d: %{timer}%" in sidebar of loop-player
+            set score "&d%{upgrade}%&d: %{timer}%" in sidebar of loop-player to 1
+        remove 1 from {timer}
+        {timer} is less than 1:
+            set {timer} to 100
+            {upgrade} is "&bDiamond I":
+                broadcast "&aDiamond Generators have been upgraded to Tier 2"
+                set {upgrade} to "&aEmerald I"
+                set {dia1} to true
+                set {diastatus} to "&bEvery 40 Seconds"
+                loop all players:
+                    set score "&b%{diastatus}%" in sidebar of loop-player to 5
+            {upgrade} is "&aEmerald I":
+                broadcast "&aEmerald Generators have been upgraded to Tier 2"
+                set {upgrade} to "&bDiamond II"
+                set {emstatus} to "&aEvery 60 Seconds"
+                loop all players:
+                    set score "&b%{emstatus}%" in sidebar of loop-player to 3
+                set {em1} to true
+            {upgrade} is "&bDiamond II":
+                broadcast "&aDiamond Generators have been upgraded to Tier 3"
+                set {upgrade} to "&aEmerald II"
+                set {diastatus} to "&bEvery 25 Seconds"
+                loop all players:
+                    set score "&b%{diastatus}%" in sidebar of loop-player to 5
+                set {dia2} to true
+            {upgrade} is "&aEmerald II":
+                broadcast "&aEmerald Generators have been upgraded to Tier 3"
+                set {upgrade} to "&cBed Gone"
+                set {emstatus} to "&aEvery 45 Seconds"
+                loop all players:
+                    set score "&b%{emstatus}%" in sidebar of loop-player to 3
+                set {em2} to true
+            {upgrade} is "&cBed Gone":
+                send title "&cALL BEDS GONE" with subtitle "&eNobody will Respawn!" to all players
+                set {upgrade} to "Teleport"
+                set {timer} to 300
+            {upgrade} is "Teleport":
+                play sound "entity.ender_dragon.death" for all players
+                send title "&cSUDDEN DEATH" to all players
+                set {upgrade} to "Ban Hammer"
+                set {timer} to 10000
+                teleport all players to location 0, 118, 0 in world "world"
+
+command /test:
+    trigger:
+        set {didjoin.%player%} to false
+
+command /joinred:
+    trigger:
+        {choose} is true:
+            if {red.player} is not set:
+                set {red.player} to player's name
+                broadcast "&a&l%player%&a has joined &4Red Team!"
+                teleport player to {red}
+                set {red.alive} to true
+            else:
+                send "&cThis Team is already full! Choose another team." to player
+        else:
+            send "&cThere is no active game!" to player
+
+command /joinblue:
+    trigger:
+        {choose} is true:
+            if {blue.player} is not set:
+                set {blue.player} to player's name
+                broadcast "&a&l%player%&a has joined &1Blue Team!"
+                teleport player to {blue}
+                set {blue.alive} to true
+            else:
+                send "&cThis Team is already full! Choose another team." to player
+        else:
+            send "&cThere is no active game!" to player
+
+command /joingreen:
+    trigger:
+        {choose} is true:
+            if {green.player} is not set:
+                set {green.player} to player's name
+                broadcast "&a&l%player%&a has joined &2Green Team!"
+                teleport player to {green}
+                set {green.alive} to true
+            else:
+                send "&cThis Team is already full! Choose another team." to player
+        else:
+            send "&cThere is no active game!" to player
+
+command /joinyellow:
+    trigger:
+        {choose} is true:
+            if {yellow.player} is not set:
+                set {yellow.player} to player's name
+                broadcast "&a&l%player%&a has joined &eYellow Team!"
+                teleport player to {yellow}
+                set {yellow.alive} to true
+            else:
+                send "&cThis Team is already full! Choose another team." to player
+        else:
+            send "&cThere is no active game!" to player
+
+command /leavebedwars:
+    trigger:
+        if {join.%player%} is true:
+            clear {join.%player%}
+            if {yellow.player} = player's name:
+                clear {yellow.player}
+            if {red.player} = player's name:
+                clear {red.player}
+            if {green.player} = player's name:
+                clear {green.player}
+            if {blue.player} = player's name:
+                clear {blue.player}
+            remove 1 from {game.queue}
+            make player execute command "/test"
+            broadcast "&e%player%&e has left the bedwars queue! &6[%{game.queue}%&6/4]"
+
+on place of crafting table:
+    {game} is true:
+        set event-block to air
+        send "&cNice try!" to player
+
+on place of tnt:
+    {game} is true:
+        set event-block to air
+        spawn primed tnt at event-location
+
+every 3 seconds:
+    if {game} is true:
+        if {yellow.alive} is true:
+            if {yellow.respawn} is true:
+                set {action.yellow} to "&eYellow: ✓"
+            if {yellow.respawn} is false:
+                set {action.yellow} to "&eYellow: 1"
+        if {yellow.alive} is false:
+            set {action.yellow} to "&eYellow: ✘"
+        if {red.alive} is true:
+            if {red.respawn} is true:
+                set {action.red} to "&cRed: ✓"
+            if {red.respawn} is false:
+                set {action.red} to "&cRed: 1"
+        if {red.alive} is false:
+            set {action.red} to "&cRed: ✘"
+        if {blue.alive} is true:
+            if {blue.respawn} is true:
+                set {action.blue} to "&9Blue: ✓"
+            if {blue.respawn} is false:
+                set {action.blue} to "&9Blue: 1"
+        if {blue.alive} is false:
+            set {action.blue} to "&9Blue: ✘"
+        if {green.alive} is true:
+            if {green.respawn} is true:
+                set {action.green} to "&aGreen: ✓"
+            if {green.respawn} is false:
+                set {action.green} to "&aGreen: 1"
+        if {green.alive} is false:
+            set {action.green} to "&aGreen: ✘"
+        loop all players:
+            send action bar "%{action.red}%    %{action.blue}%    %{action.green}%    %{action.yellow}%" to loop-player
+
+on block place:
+    {game} is true:
+        add location of event-block to {block::*} 
+
+on block break:
+    {game} is true:
+        {block::*} contains location of event-block:
+            stop
+        {block::*} does not contain location of event-block:
+            if event-block is any bed:
+                stop
+            else:
+                cancel event
+                send "&cYou can only break blocks placed by a player!" to player
+
+on explode:
+    {game} is true:
+        loop exploded blocks:
+            loop {block::*}:
+                location of loop-block is equal to loop-value-2:
+                    break block at location of loop-value-2
+                else:
+                    cancel event
+    else:
+        cancel event
+
+on drop:
+    event-item is nether star named "&aMenu&7 [RIGHT CLICK]":
+        cancel event
+        set slot 8 of player to air
+        set slot 8 of player to nether star named "&aMenu&7 [RIGHT CLICK]"
+
+on rightclick holding a fire charge:
+    {charge.%player%} is not set:
+        name of item is "Fireball"
+        remove 1 fire charge named "Fireball" from player's inventory
+        make player shoot a fireball at speed 2
+        set {charge.%player%} to true
+        wait 10 ticks
+        clear {charge.%player%}
+        stop
+    {charge.%player%} is true:
+        send "&cYou can only use a fireball every 0.5 seconds!" to player
+
+on click:
+    player is holding nether star named "&aMenu&7 [RIGHT CLICK]"
+    cancel event
+    set {_t} to experience bottle
+    open virtual chest inventory with size 5 named "&2SMP EARTH MENU" to player
+    format gui slot (integers between 0 and 26) of player with green stained glass pane named "&a" 
+    format gui slot (integers between 27 and 44) of player with gray stained glass pane named "&a" 
+    format gui slot 36 of player with player's skull named "&a%player%&a's Menu"
+    format gui slot 40 of player with record ward named "&aPlay Some Pog Music" to run:
+        format gui slot (integers between 0 and 26) of player with green stained glass pane named " "
+        format gui slot 0 of player with record ward named "disc.cat" to run:
+            play sound "record.cat" with volume 1000.0 and pitch 1.0 for player
+            send "&aNow playing disc.cat" to player
+        format gui slot 1 of player with record ward named "disc.blocks" to run:
+            play sound "record.blocks" with volume 1000.0 and pitch 1.0 for player
+            send "&aNow playing disc.blocks" to player
+        format gui slot 2 of player with record ward named "disc.chirp" to run:
+            play sound "record.chirp" with volume 1000.0 and pitch 1.0 for player
+            send "&aNow playing disc.chirp" to player
+        format gui slot 3 of player with record ward named "disc.far" to run:
+            play sound "record.far" with volume 1000.0 and pitch 1.0 for player
+            send "&aNow playing disc.far" to player
+        format gui slot 4 of player with record ward named "disc.mall" to run:
+            play sound "record.mall" with volume 1000.0 and pitch 1.0 for player
+            send "&aNow playing disc.mall" to player
+        format gui slot 5 of player with record ward named "disc.mellohi" to run:
+            play sound "record.mellohi" with volume 1000.0 and pitch 1.0 for player
+            send "&aNow playing disc.mellohi" to player
+        format gui slot 6 of player with record ward named "disc.stal" to run:
+            play sound "record.stal" with volume 1000.0 and pitch 1.0 for player
+            send "&aNow playing disc.stal" to player
+        format gui slot 7 of player with record ward named "disc.strad" to run:
+            play sound "record.strad" with volume 1000.0 and pitch 1.0 for player
+            send "&aNow playing disc.strad" to player
+        format gui slot 8 of player with record ward named "disc.ward" to run:
+            play sound "record.ward" with volume 1000.0 and pitch 1.0 for player
+            send "&aNow playing disc.ward" to player
+        format gui slot 9 of player with record ward named "disc.wait" to run:
+            play sound "record.wait" with volume 1000.0 and pitch 1.0 for player
+            send "&aNow playing disc.wait" to player
+        format gui slot 10 of player with record ward named "music.creative.random" to run:
+            play sound "music.creative" with volume 1000.0 and pitch 1.0 for player
+            send "&aNow playing music.creative.random" to player
+        format gui slot 11 of player with record ward named "music.credits" to run:
+            play sound "music.credits" with volume 1000.0 and pitch 1.0 for player
+            send "&aNow playing music.credits" to player
+        format gui slot 12 of player with record ward named "music.dragon" to run:
+            play sound "music.dragon" with volume 1000.0 and pitch 1.0 for player
+            send "&aNow playing music.dragon" to player
+        format gui slot 13 of player with record ward named "music.end" to run:
+            play sound "music.end" with volume 1000.0 and pitch 1.0 for player
+            send "&aNow playing music.end" to player
+        format gui slot 14 of player with record ward named "music.game.random" to run:
+            play sound "music.game" with volume 1000.0 and pitch 1.0 for player
+            send "&aNow playing music.game.random" to player
+        format gui slot 15 of player with record ward named "music.menu.random" to run:
+            play sound "music.menu" with volume 1000.0 and pitch 1.0 for player
+            send "&aNow playing music.menu.random" to player
+        format gui slot 16 of player with record ward named "music.nether.random" to run:
+            play sound "music.nether" with volume 1000.0 and pitch 1.0 for player
+            send "&aNow playing music.nether.random" to player
+        format gui slot 22 of player with barrier named "&a&lSTOP ALL SOUNDS" to run:
+            execute console command "/stopsound %player%"
+            send "&aStopped all sounds!" to player
+        format gui slot 17 of player with jukebox named "&aPlay Random Song" to run:
+            set {_m} to random element out of {discname::*}
+            play sound "%{_m}%" with volume 1000.0 and pitch 1.0 for player
+    format gui slot 44 of player with barrier named "&aClose" to close
