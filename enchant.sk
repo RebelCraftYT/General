@@ -1,0 +1,84 @@
+every 5 minutes:
+    execute console command "/save-all"
+
+on hunger bar change:
+    set player's hunger bar to 10
+
+function loopItem(p: player):
+    {_p}'s gamemode is Survival or Creative:
+        open virtual chest inventory with size 3 named "&2Which item to enchant?" to {_p}
+        format gui slot (integers between 0 and 9 and integers between 17 and 26) of {_p} with gray stained glass pane named " "
+        format gui slot 10 of {_p} with {_b::1} with lore "&aClick to Enchant!" to run:
+            set {_c} to {_b::1} parsed as itemtype
+            enchant {_c} with {_enchanttype}
+            remove {_b::1} from {_p}
+            give {_p} {_c}
+        format gui slot 11 of {_p} with {_b::2} with lore "&aClick to Enchant!" to run:
+            set {_c} to {_b::2} parsed as itemtype
+            enchant {_c} with {_enchanttype}
+            remove {_b::2} from {_p}
+            give {_p} {_c}
+        format gui slot 12 of {_p} with {_b::3} with lore "&aClick to Enchant!" to run:
+            set {_c} to {_b::3} parsed as itemtype
+            enchant {_c} with {_enchanttype}
+            remove {_b::3} from {_p}
+            give {_p} {_c}
+        format gui slot 13 of {_p} with {_b::4} with lore "&aClick to Enchant!" to run:
+            set {_c} to {_b::4} parsed as itemtype
+            enchant {_c} with {_enchanttype}
+            remove {_b::4} from {_p}
+            give {_p} {_c}
+        format gui slot 14 of {_p} with {_b::5} with lore "&aClick to Enchant!" to run:
+            set {_c} to {_b::5} parsed as itemtype
+            enchant {_c} with {_enchanttype}
+            remove {_b::5} from {_p}
+            give {_p} {_c}
+        format gui slot 15 of {_p} with {_b::6} with lore "&aClick to Enchant!" to run:
+            set {_c} to {_b::6} parsed as itemtype
+            enchant {_c} with {_enchanttype}
+            remove {_b::6} from {_p}
+            give {_p} {_c}
+        format gui slot 16 of {_p} with {_b::7} with lore "&aClick to Enchant!" to run:
+            set {_c} to {_b::7} parsed as itemtype
+            enchant {_c} with {_enchanttype}
+            remove {_b::7} from {_p}
+            give {_p} {_c}
+
+on rightclick on enchanting table:
+    cancel event
+    open virtual chest inventory with size 3 named "&2Enchanting Table" to player
+    format gui slot (integers between 0 and 26) of player with gray stained glass pane named " "
+    format gui slot 12 of player with enchanting table named "&aOpen Enchanting Table" to run:
+        open enchanting table inventory to player
+    format gui slot 14 of player with enchanted book named "&aPurchase Enchantment" to run:
+        open virtual chest inventory with size 6 named "&2Purchase Enchantment for item" to player
+        format gui slot (integers between 0 and 8 and integers between 45 and 54) of player with gray stained glass pane named " "
+        format gui slot 9 of player with enchanted book with lore "&7Aqua Infinity" to run:
+            set {_enchanttype} to aqua affinity
+            loop all items in {_p}'s inventory:
+                loop-item is a helmet:
+                    add loop-item to {_b::*}
+            loopItem(player)
+
+on load:
+    set {_a} to leather helmet named "&8Coal Helmet"
+    dye {_a} black
+    set {_s} to leather chestplate named "&8Coal Chestplate"
+    dye {_s} black
+    set {_d} to leather leggings named "&8Coal Leggings"
+    dye {_d} black
+    set {_f} to leather boots named "&8Coal Boots"
+    dye {_f} black
+    register new shaped recipe for {_s} using coal, air, coal, coal, coal, coal, coal, coal and coal with id "coalchest"
+    register new shaped recipe for {_a} using coal, coal, coal, coal, air, coal, air, air and air with id "coalhelm"
+    register new shaped recipe for {_a} using air, air, air, coal, coal, coal, coal, air and coal with id "coalhelm1"
+    register new shaped recipe for {_d} using coal, coal, coal, coal, air, coal, coal, air and coal with id "coalleg"
+    register new shaped recipe for {_f} using coal, air, coal, coal, air, coal, air, air and air with id "coalsock"
+    register new shaped recipe for {_f} using air, air, air, coal, air, coal, coal, air and coal with id "coalsock1"
+    register new shaped recipe for chainmail helmet named "&7Iron Helmet" using iron ingot, iron ingot, iron ingot, iron ingot, air, iron ingot, air, air and air with id "ironhelm"
+    register new shaped recipe for chainmail chestplate named "&7Iron Chestplate" using iron ingot, air, iron ingot, iron ingot, iron ingot, iron ingot, iron ingot, iron ingot and iron ingot with id "ironchest"
+    register new shaped recipe for chainmail leggings named "&7Iron Leggings" using iron ingot, iron ingot, iron ingot, iron ingot, air, iron ingot, iron ingot, air and iron ingot with id "ironleg"
+    register new shaped recipe for chainmail boots named "&7Iron Boots" using iron ingot, air, iron ingot, iron ingot, air, iron ingot, air, air and air with id "ironboot"
+    register new shaped recipe for chainmail boots named "&7Iron Boots" using air, air, air, iron ingot, air, iron ingot, iron ingot, air and iron ingot with id "ironboot1"
+    register new shaped recipe for chainmail helmet named "&7Iron Helmet" using air, air, air, iron ingot, iron ingot, iron ingot, iron ingot, air and iron ingot with id "ironhelm1"
+    broadcast "&aReloaded Custom Recipies!"

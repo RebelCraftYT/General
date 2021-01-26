@@ -1,0 +1,49 @@
+on region enter:
+    "%event-region%" contains "highestpeak":
+        {achieve.peak.%player%} is not set:
+            play sound "ui.toast.challenge_complete" to player
+            set {achieve.peak.%player%} to true
+            send "&6--------------------" to player
+            send "&eAchievement Completed" to player
+            send formatted "<tooltip:&aClimb the highest mountain on the map>&3Feels like a lot more than 200 Blocks" to player
+            send "&a" to player
+            send "&eReward: &6100 Coins" to player
+            add 100 to player's balance
+            send "&a" to player
+            send "&6--------------------" to player
+
+on world change:
+    player's world is "world":
+        {achieve.hub.%player%} is not set:
+            set {achieve.hub.%player%} to true
+            send "&6--------------------" to player
+            send "&eAchievement Completed" to player
+            send formatted "<tooltip:&aFind the Skyblock Hub>&3Nobody likes Normal Skyblock" to player
+            send "&a" to player
+            send "&eReward: &650 Coins" to player
+            add 50 to player's balance
+            send "&a" to player
+            send "&6--------------------" to player
+
+command /achievements: 
+    trigger:
+        {achieve.peak.%player%} is not set:
+            set {achieve.text.peak.%player%} to "&cNot Complete"
+        {achieve.peak.%player%} is true:
+            set {achieve.text.peak.%player%} to "&aComplete!"
+        {achieve.hub.%player%} is not set:
+            set {achieve.text.hub.%player%} to "&cNot Complete"
+        {achieve.hub.%player%} is true:
+            set {achieve.text.hub.%player%} to "&aComplete!"
+        open virtual chest inventory with size 5 named "&aSkyblock Achievements" to player
+        set {_b} to 0
+        loop 44 times:
+            format gui slot {_b} of player with gray stained glass pane named " "
+            add 1 to {_b}
+        format gui slot 22 of player with elytra named "&3Feels like a lot more than 200 Blocks" with lore " " and "&aClimb the highest mountain on the map" and " " and "%{achieve.text.peak.%player%}%"
+        format gui slot 23 of player with grass block named "&3Nobody likes Normal Skyblock" with lore " " and "&aFind the Skyblock Hub" and " " and "%{achieve.text.hub.%player%}%"
+
+command /resetachieve:
+    trigger:
+        clear {achieve.peak.%player%}
+        clear {achieve.text.peak.%player%}

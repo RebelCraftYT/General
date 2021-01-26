@@ -1,0 +1,79 @@
+on break of wheat:
+    cancel event
+    break event-block
+    wait 20 seconds
+    set event-block to fully grown wheat plant
+
+on break of fully grown carrot plant:
+    cancel event
+    break event-block
+    wait 20 seconds
+    set event-block to fully grown carrot plant
+
+on break of pumpkin:
+    cancel event
+    break event-block
+    wait 20 seconds
+    set event-block to pumpkin
+
+on break of melon:
+    cancel event
+    break event-block
+    wait 20 seconds
+    set event-block to melon
+
+on break of sugar cane:
+    cancel event
+    break event-block
+    wait 20 seconds
+    block below event-block is air:
+        set block below event-block to sugar cane
+    set event-block to sugar cane
+
+on break of mushroom stem:
+    cancel event
+    break event-block
+    wait 20 seconds
+    set event-block to mushroom stem
+
+on break of brown mushroom block:
+    cancel event
+    break event-block
+    wait 20 seconds
+    set event-block to brown mushroom block
+
+on break of red mushroom block:
+    cancel event
+    break event-block
+    wait 20 seconds
+    set event-block to red mushroom block
+
+on break of brown mushroom:
+    cancel event
+    break event-block
+    wait 20 seconds
+    set event-block to brown mushroom
+
+on break of red mushroom:
+    cancel event
+    break event-block
+    wait 20 seconds
+    set event-block to red mushroom
+
+on break of cocoa:
+    cancel event
+    break event-block
+    wait 20 seconds
+    set event-block to ripe cocoa
+
+on break of hay block:
+    cancel event
+    break event-block
+    wait 20 seconds
+    set event-block to hay block
+
+on break of fully grown potato plant:
+    cancel event
+    break event-block
+    wait 20 seconds
+    set event-block to fully grown potato plant

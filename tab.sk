@@ -1,0 +1,42 @@
+every 2 seconds:
+    loop all players:
+        set loop-player's tab list header to "&3-------&9-------&3-------&9-------&3-------%nl%%nl%&3&lMine&6&lPlus &aSkyblock%nl%%nl%&3&lWelcome &9&l%loop-player's displayname%&3&l!%nl%&8Server Speed (Ticks/Second): %tps from the last minute%&8%nl%&8Your Connection (ms): %loop-player's ping%"
+        set loop-player's tab list footer to "%nl%&eBalance: %loop-player's balance%%nl%%nl%&e192.168.1.76:8000"
+
+on join:
+    set slot 8 of player to nether star named "&aSkyblock Menu&e&l [RIGHT CLICK]"
+
+on inventory click:
+    event-inventory = Player's inventory:
+        clicked slot is 8:
+            cancel event
+
+on drop:
+    event-item is nether star named "&aSkyblock Menu&e&l [RIGHT CLICK]":
+        cancel event
+        set slot 8 of player to 1 nether star named "&aSkyblock Menu&e&l [RIGHT CLICK]"
+
+on click:
+    player is holding nether star named "&aSkyblock Menu&e&l [RIGHT CLICK]"
+    open virtual chest inventory with size 5 named "&aSkyblock Menu" to player
+    format gui slot (integers between 0 and 44) of player with gray stained glass pane named "&a" 
+    format gui slot 13 of player with player's skull named "&a%player%&a's Menu"
+    format gui slot 21 of player with stone pickaxe named "&aView Your Skills" to run:
+        play sound "block.anvil.land" to player
+        close player's inventory
+        apply potion of blindness of tier 2 to player for 5 seconds
+        send title "&cComing Soon!" to player for 3 seconds
+        wait 3 seconds
+        set selected hotbar slot of player to 8
+
+command /tbn:
+    trigger:
+        player's tool is floor banner:
+            set {_var} to type of player's tool
+            make player wear cape {_var}
+
+command /clear:
+    trigger:
+        make player execute command "/essentials:clear"
+        wait 1 tick
+        set slot 8 of player to nether star named "&aSkyblock Menu&e&l [RIGHT CLICK]"

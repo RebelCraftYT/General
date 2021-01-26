@@ -1,0 +1,163 @@
+function mineSkill(p: player,b: block):
+    {skill.mine.goal.%{_p}%} is not set:
+        set {skill.mine.goal.%{_p}%} to 10
+        set {skill.mine.prog.%{_p}%} to 1
+        set {skill.mine.level.%{_p}%} to 1
+    {_b} is cobblestone:
+        add 1 to {skill.mine.prog.%{_p}%}
+        send action bar "&3+1 Mining (%{skill.mine.goal.%{_p}%}%&3 / %{skill.mine.prog.%{_p}%}%&3)" to {_p}
+    {_b} is coal ore:
+        add 2 to {skill.mine.prog.%{_p}%}
+        send action bar "&3+2 Mining (%{skill.mine.goal.%{_p}%}%&3 / %{skill.mine.prog.%{_p}%}%&3)" to {_p}
+    {_b} is iron ore:
+        add 3 to {skill.mine.prog.%{_p}%}
+        send action bar "&3+3 Mining (%{skill.mine.goal.%{_p}%}%&3 / %{skill.mine.prog.%{_p}%}%&3)" to {_p}
+    {_b} is gold ore:
+        add 4 to {skill.mine.prog.%{_p}%}
+        send action bar "&3+4 Mining (%{skill.mine.goal.%{_p}%}%&3 / %{skill.mine.prog.%{_p}%}%&3)" to {_p}
+    {_b} is redstone ore:
+        add 3 to {skill.mine.prog.%{_p}%}
+        send action bar "&3+3 Mining (%{skill.mine.goal.%{_p}%}%&3 / %{skill.mine.prog.%{_p}%}%&3)" to {_p}
+    {_b} is lapis ore:
+        add 3 to {skill.mine.prog.%{_p}%}
+        send action bar "&3+3 Mining (%{skill.mine.goal.%{_p}%}%&3 / %{skill.mine.prog.%{_p}%}%&3)" to {_p}
+    {_b} is emerald ore:
+        add 5 to {skill.mine.prog.%{_p}%}
+        send action bar "&3+5 Mining (%{skill.mine.goal.%{_p}%}%&3 / %{skill.mine.prog.%{_p}%}%&3)" to {_p}
+    {_b} is diamond ore:
+        add 6 to {skill.mine.prog.%{_p}%}
+        send action bar "&3+6 Mining (%{skill.mine.goal.%{_p}%}%&3 / %{skill.mine.prog.%{_p}%}%&3)" to {_p}
+    {skill.mine.prog.%{_p}%} >= {skill.mine.goal.%{_p}%}:
+        {skill.mine.level.%{_p}%} is 1:
+            send "&6Rewards:" to {_p}
+            send "&a50 Coins" to {_p}
+            add 50 to {_p}'s balance
+            send "&aIron Pickaxe Recipe" to {_p}
+        {skill.mine.level.%{_p}%} is 2:
+            send "&6Rewards:" to {_p}
+            send "&a100 Coins" to {_p}
+            add 100 to {_p}'s balance
+        {skill.mine.level.%{_p}%} is 3:
+            send "&6Rewards:" to {_p}
+            send "&a110 Coins" to {_p}
+            add 110 to {_p}'s balance
+        {skill.mine.level.%{_p}%} is 4:
+            send "&6Rewards:" to {_p}
+            send "&a120 Coins" to {_p}
+            add 120 to {_p}'s balance
+        {skill.mine.level.%{_p}%} is 5:
+            send "&6Rewards:" to {_p}
+            send "&a130 Coins" to {_p}
+            add 130 to {_p}'s balance
+            send "&aEnchantment Efficiency I Book (Regenerated Crafting)" to {_p}
+        {skill.mine.level.%{_p}%} is 6:
+            send "&6Rewards:" to {_p}
+            send "&a140 Coins" to {_p}
+            add 140 to {_p}'s balance
+        {skill.mine.level.%{_p}%} is 7:
+            send "&6Rewards:" to {_p}
+            send "&a150 Coins" to {_p}
+            add 150 to {_p}'s balance
+        {skill.mine.level.%{_p}%} is 8:
+            send "&6Rewards:" to {_p}
+            send "&a160 Coins" to {_p}
+            add 160 to {_p}'s balance
+        {skill.mine.level.%{_p}%} is 9:
+            send "&6Rewards:" to {_p}
+            send "&a170 Coins" to {_p}
+            add 170 to {_p}'s balance
+        add 1 to {skill.mine.level.%{_p}%}
+        set {skill.mine.prog.%{_p}%} to 1
+        set {skill.mine.goal.%{_p}%} to {skill.mine.goal.%{_p}%} * 1.25
+        send "&aLevel Up!" to {_p}
+        send title "&e&k||&r&aLevel Up&e&k||" with subtitle "&6You are now Mining Level %{skill.mine.level.%{_p}%}%" to {_p}
+
+command /gb:
+    trigger:
+        set {_n} to 10
+        loop 40 times:
+            set {_n} to {_n} * 1.25
+        send "%{_n}%" to player
+
+on mine of stone:
+    player's gamemode is Survival:
+        cancel event
+
+on mine of cobblestone:
+    player's gamemode is Survival:
+        break event-block
+        add 1 to player's level
+        set event-block to stone
+        wait 20 seconds
+        set event-block to cobblestone
+
+on mine of coal ore:
+    player's gamemode is Survival:
+        break event-block
+        set event-block to stone
+        add 5 to player's level
+        wait 20 seconds
+        set event-block to coal ore
+
+on mine of iron ore:
+    player's gamemode is Survival:
+        lore of player's tool contains "&5Autosmelt":
+            set event-block to stone
+            cancel drops
+            add 7 to player's level
+            drop 1 iron ingot at event-block
+            wait 20 seconds
+            set event-block to iron ore
+        else:
+            break event-block
+            add 7 to player's level
+            set event-block to stone
+            wait 20 seconds
+            set event-block to iron ore
+
+on mine of gold ore:
+    player's gamemode is Survival:
+        lore of player's tool contains "&5Autosmelt":
+            set event-block to stone
+            cancel drops
+            add 7 to player's level
+            drop 1 gold ingot at event-block
+            wait 20 seconds
+            set event-block to gold ore
+        else:
+            break event-block
+            add 7 to player's level
+            set event-block to stone
+            wait 20 seconds
+            set event-block to gold ore
+
+on mine of emerald ore:
+    player's gamemode is Survival:
+        break event-block
+        add 16 to player's level
+        set event-block to stone
+        wait 20 seconds
+        set event-block to emerald ore
+
+on mine of diamond ore:
+    break event-block
+    add 20 to player's level
+    set event-block to stone
+    wait 20 seconds
+    set event-block to diamond ore
+
+on mine of redstone ore:
+    player's gamemode is Survival:
+        break event-block
+        add 12 to player's level
+        set event-block to stone
+        wait 20 seconds
+        set event-block to redstone ore
+    
+on mine of lapis ore:
+    player's gamemode is Survival:
+        break event-block
+        add 14 to player's level
+        set event-block to stone
+        wait 20 seconds
+        set event-block to lapis ore

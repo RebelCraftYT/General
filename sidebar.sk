@@ -1,0 +1,10 @@
+function scoreboardToggle(p: player):
+    set name of sidebar of {_p} to "&e&lMine&6&lPlus&a Skyblock"
+    set {bal.%{_p}%} to {_p}'s balance
+    set score "&a  " in sidebar of {_p} to 4
+    set score "&eAccount: %{_p}%" in sidebar of {_p} to 3
+    set score "&e  " in sidebar of {_p} to 2
+    set score "&eIP: 192.168.1.76:8000" in sidebar of {_p} to 1
+
+on join:
+    scoreboardToggle(player)

@@ -1,0 +1,284 @@
+command /inventory [<text>]:
+    permission: op
+    trigger:
+        arg is "save":
+            {inv.save.1.%player%::*} is set:
+                set {invgui1.item} to minecart with chest
+                set {invgui1.text} to "&cSlot Taken!"
+                set {invgui1.lore} to "&cClick to overwrite the current inventory!"
+            {inv.save.1.%player%::*} is not set:
+                set {invgui1.item} to minecart
+                set {invgui1.text} to "&aSlot Available!"
+                set {invgui1.lore} to "&aClick to set this slot!"
+            {inv.save.2.%player%::*} is set:
+                set {invgui2.item} to minecart with chest
+                set {invgui2.text} to "&cSlot Taken!"
+                set {invgui2.lore} to "&cClick to overwrite the current inventory!"
+            {inv.save.2.%player%::*} is not set:
+                set {invgui2.item} to minecart
+                set {invgui2.text} to "&aSlot Available!"
+                set {invgui2.lore} to "&aClick to set this slot!"
+            {inv.save.3.%player%::*} is set:
+                set {invgui3.item} to minecart with chest
+                set {invgui3.text} to "&cSlot Taken!"
+                set {invgui3.lore} to "&cClick to overwrite the current inventory!"
+            {inv.save.3.%player%::*} is not set:
+                set {invgui3.item} to minecart
+                set {invgui3.text} to "&aSlot Available!"
+                set {invgui3.lore} to "&aClick to set this slot!"
+            {inv.save.4.%player%::*} is set:
+                set {invgui4.item} to minecart with chest
+                set {invgui4.text} to "&cSlot Taken!"
+                set {invgui4.lore} to "&cClick to overwrite the current inventory!"
+            {inv.save.4.%player%::*} is not set:
+                set {invgui4.item} to minecart
+                set {invgui4.text} to "&aSlot Available!"
+                set {invgui4.lore} to "&aClick to set this slot!"
+            {inv.save.5.%player%::*} is set:
+                set {invgui5.item} to minecart with chest
+                set {invgui5.text} to "&cSlot Taken!"
+                set {invgui5.lore} to "&cClick to overwrite the current inventory!"
+            {inv.save.5.%player%::*} is not set:
+                set {invgui5.item} to minecart
+                set {invgui5.text} to "&aSlot Available!"
+                set {invgui5.lore} to "&aClick to set this slot!"
+            {inv.save.6.%player%::*} is set:
+                set {invgui6.item} to minecart with chest
+                set {invgui6.text} to "&cSlot Taken!"
+                set {invgui6.lore} to "&cClick to overwrite the current inventory!"
+            {inv.save.6.%player%::*} is not set:
+                set {invgui6.item} to minecart
+                set {invgui6.text} to "&aSlot Available!"
+                set {invgui6.lore} to "&aClick to set this slot!"
+            {inv.save.7.%player%::*} is set:
+                set {invgui7.item} to minecart with chest
+                set {invgui7.text} to "&cSlot Taken!"
+                set {invgui7.lore} to "&cClick to overwrite the current inventory!"
+            {inv.save.7.%player%::*} is not set:
+                set {invgui7.item} to minecart
+                set {invgui7.text} to "&aSlot Available!"
+                set {invgui7.lore} to "&aClick to set this slot!"
+            set metadata tag "gui" of player to chest inventory with 3 rows named "&axdvH"
+            open (metadata tag "gui" of player) to player
+            set slot (integers between 0 and 9 and integers between 17 and 26) of player's current inventory to gray stained glass pane named " "
+            set slot 10 of player's current inventory to {invgui1.item} named {invgui1.text} with lore {invgui1.lore}
+            set slot 11 of player's current inventory to {invgui2.item} named {invgui2.text} with lore {invgui2.lore}
+            set slot 12 of player's current inventory to {invgui3.item} named {invgui3.text} with lore {invgui3.lore}
+            set slot 13 of player's current inventory to {invgui4.item} named {invgui4.text} with lore {invgui4.lore}
+            set slot 14 of player's current inventory to {invgui5.item} named {invgui5.text} with lore {invgui5.lore}
+            set slot 15 of player's current inventory to {invgui6.item} named {invgui6.text} with lore {invgui6.lore}
+            set slot 16 of player's current inventory to {invgui7.item} named {invgui7.text} with lore {invgui7.lore}
+            set slot 22 of player's current inventory to barrier named "&cBack"
+        else if arg is "load":
+            {inv.save.1.%player%::*} is set:
+                set {invgui1.item} to minecart with chest
+                set {invgui1.text} to "&aSlot Taken!"
+                set {invgui1.text} to "&aClick to load this inventory!"
+            {inv.save.1.%player%::*} is not set:
+                set {invgui1.item} to minecart
+                set {invgui1.text} to "&cSlot Available!"
+                set {invgui1.lore} to "&cYou can't load this!"
+            {inv.save.2.%player%::*} is set:
+                set {invgui2.item} to minecart with chest
+                set {invgui2.text} to "&aSlot Taken!"
+                set {invgui2.text} to "&aClick to load this inventory!"
+            {inv.save.2.%player%::*} is not set:
+                set {invgui2.item} to minecart
+                set {invgui2.text} to "&cSlot Available!"
+                set {invgui2.lore} to "&cYou can't load this!"
+            {inv.save.3.%player%::*} is set:
+                set {invgui3.item} to minecart with chest
+                set {invgui3.text} to "&aSlot Taken!"
+                set {invgui3.text} to "&aClick to load this inventory!"
+            {inv.save.3.%player%::*} is not set:
+                set {invgui3.item} to minecart
+                set {invgui3.text} to "&cSlot Available!"
+                set {invgui3.lore} to "&cYou can't load this!"
+            {inv.save.4.%player%::*} is set:
+                set {invgui4.item} to minecart with chest
+                set {invgui4.text} to "&aSlot Taken!"
+                set {invgui4.text} to "&aClick to load this inventory!"
+            {inv.save.4.%player%::*} is not set:
+                set {invgui4.item} to minecart
+                set {invgui4.text} to "&cSlot Available!"
+                set {invgui4.lore} to "&cYou can't load this!"
+            {inv.save.5.%player%::*} is set:
+                set {invgui5.item} to minecart with chest
+                set {invgui5.text} to "&aSlot Taken!"
+                set {invgui5.text} to "&aClick to load this inventory!"
+            {inv.save.5.%player%::*} is not set:
+                set {invgui5.item} to minecart
+                set {invgui5.text} to "&cSlot Available!"
+                set {invgui5.lore} to "&cYou can't load this!"
+            {inv.save.6.%player%::*} is set:
+                set {invgui6.item} to minecart with chest
+                set {invgui6.text} to "&aSlot Taken!"
+                set {invgui6.text} to "&aClick to load this inventory!"
+            {inv.save.6.%player%::*} is not set:
+                set {invgui6.item} to minecart
+                set {invgui6.text} to "&cSlot Available!"
+                set {invgui6.lore} to "&cYou can't load this!"
+            {inv.save.7.%player%::*} is set:
+                set {invgui7.item} to minecart with chest
+                set {invgui7.text} to "&aSlot Taken!"
+                set {invgui7.text} to "&aClick to load this inventory!"
+            {inv.save.7.%player%::*} is not set:
+                set {invgui7.item} to minecart
+                set {invgui7.text} to "&cSlot Available!"
+                set {invgui7.lore} to "&cYou can't load this!"
+            set metadata tag "gui" of player to chest inventory with 3 rows named "&abFsx"
+            open (metadata tag "gui" of player) to player
+            set slot (integers between 0 and 9 and integers between 17 and 26) of player's current inventory to gray stained glass pane named " "
+            set slot 10 of player's current inventory to {invgui1.item} named {invgui1.text} with lore {invgui1.lore}
+            set slot 11 of player's current inventory to {invgui2.item} named {invgui2.text} with lore {invgui2.lore}
+            set slot 12 of player's current inventory to {invgui3.item} named {invgui3.text} with lore {invgui3.lore}
+            set slot 13 of player's current inventory to {invgui4.item} named {invgui4.text} with lore {invgui4.lore}
+            set slot 14 of player's current inventory to {invgui5.item} named {invgui5.text} with lore {invgui5.lore}
+            set slot 15 of player's current inventory to {invgui6.item} named {invgui6.text} with lore {invgui6.lore}
+            set slot 16 of player's current inventory to {invgui7.item} named {invgui7.text} with lore {invgui7.lore}
+            set slot 22 of player's current inventory to barrier named "&cBack"
+        else if arg is not set:
+            open virtual chest inventory with size 3 named "&aVerh" to player
+            set slot (integers between 0 and 26) of player's current inventory to gray glass pane named "&a"
+            set slot 12 of player's current inventory to minecart named "&aSave your inventory"
+            set slot 14 of player's current inventory to minecart with chest named "&aLoad a saved inventory"
+
+on inventory click:
+    set {_count} to 0
+    name of player's current inventory is "&aVerh":
+        clicked slot is 12:
+            cancel event
+            wait 1 second
+            make player execute command "/inventory save"
+            stop
+        clicked slot is 14:
+            cancel event
+            wait 1 second
+            make player execute command "/inventory load"
+            stop
+        else:
+            cancel event
+    name of player's current inventory is "&axdvH":
+        clicked slot is 10:
+            loop 36 times:
+                set {inv.save.1.%player%::%{_count}%} to slot {_count} of player's inventory
+                add 1 to {_count}
+                wait 1 tick
+            close player's inventory
+            send "&aInventory Saved!" to player
+            cancel event
+        clicked slot is 11:
+            loop 36 times:
+                set {inv.save.2.%player%::%{_count}%} to slot {_count} of player's inventory
+                add 1 to {_count}
+                wait 1 tick
+            close player's inventory
+            send "&aInventory Saved!" to player
+            cancel event
+        clicked slot is 12:
+            loop 36 times:
+                set {inv.save.3.%player%::%{_count}%} to slot {_count} of player's inventory
+                add 1 to {_count}
+                wait 1 tick
+            close player's inventory
+            send "&aInventory Saved!" to player
+            cancel event
+        clicked slot is 13:
+            loop 36 times:
+                set {inv.save.4.%player%::%{_count}%} to slot {_count} of player's inventory
+                add 1 to {_count}
+                wait 1 tick
+            close player's inventory
+            send "&aInventory Saved!" to player
+            cancel event
+        clicked slot is 14:
+            loop 36 times:
+                set {inv.save.5.%player%::%{_count}%} to slot {_count} of player's inventory
+                add 1 to {_count}
+                wait 1 tick
+            close player's inventory
+            send "&aInventory Saved!" to player
+            cancel event
+        clicked slot is 15:
+            loop 36 times:
+                set {inv.save.6.%player%::%{_count}%} to slot {_count} of player's inventory
+                add 1 to {_count}
+                wait 1 tick
+            close player's inventory
+            send "&aInventory Saved!" to player
+            cancel event
+        clicked slot is 16:
+            loop 36 times:
+                set {inv.save.7.%player%::%{_count}%} to slot {_count} of player's inventory
+                add 1 to {_count}
+                wait 1 tick
+            close player's inventory
+            send "&aInventory Saved!" to player
+            cancel event
+        clicked slot is 22:
+            make player execute command "/inventory"
+            cancel event
+        else:
+            cancel event
+    name of player's current inventory is "&abFsx":
+        clicked slot is 10:
+            loop 36 times:
+                set slot {_count} of player to {inv.save.1.%player%::%{_count}%}
+                add 1 to {_count}
+                wait 1 tick
+            close player's inventory
+            send "&aInventory Loaded!" to player
+            cancel event
+        clicked slot is 11:
+            loop 36 times:
+                set slot {_count} of player to {inv.save.2.%player%::%{_count}%}
+                add 1 to {_count}
+                wait 1 tick
+            close player's inventory
+            send "&aInventory Loaded!" to player
+            cancel event
+        clicked slot is 12:
+            loop 36 times:
+                set slot {_count} of player to {inv.save.3.%player%::%{_count}%}
+                add 1 to {_count}
+                wait 1 tick
+            close player's inventory
+            send "&aInventory Loaded!" to player
+        clicked slot is 13:
+            cancel event
+            loop 36 times:
+                set slot {_count} of player to {inv.save.4.%player%::%{_count}%}
+                add 1 to {_count}
+                wait 1 tick
+            close player's inventory
+            send "&aInventory Loaded!" to player
+            cancel event
+        clicked slot is 14:
+            loop 36 times:
+                set slot {_count} of player to {inv.save.5.%player%::%{_count}%}
+                add 1 to {_count}
+                wait 1 tick
+            close player's inventory
+            send "&aInventory Loaded!" to player
+            cancel event
+        clicked slot is 15:
+            loop 36 times:
+                set slot {_count} of player to {inv.save.6.%player%::%{_count}%}
+                add 1 to {_count}
+                wait 1 tick
+            close player's inventory
+            send "&aInventory Loaded!" to player
+            cancel event
+        clicked slot is 16:
+            loop 36 times:
+                set slot {_count} of player to {inv.save.7.%player%::%{_count}%}
+                add 1 to {_count}
+                wait 1 tick
+            close player's inventory
+            send "&aInventory Loaded!" to player
+            cancel event
+        clicked slot is 22:
+            make player execute command "/inventory"
+            cancel event
+        else:
+            cancel event

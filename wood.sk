@@ -1,0 +1,56 @@
+on block break:
+    player's gamemode is Survival
+    set {_t} to type of event-block
+    event-block is oak wood:
+        break event-block
+        wait 20 seconds
+        set event-block to {_t}
+    event-block is birch wood:
+        break event-block
+        wait 20 seconds
+        set event-block to {_t}
+    event-block is spruce wood:
+        break event-block
+        wait 20 seconds
+        set event-block to {_t}
+    event-block is dark oak wood:
+        break event-block
+        wait 20 seconds
+        set event-block to {_t}
+    event-block is jungle wood:
+        break event-block
+        wait 20 seconds
+        set event-block to {_t}
+    event-block is acacia wood:
+        break event-block
+        wait 20 seconds
+        set event-block to {_t}
+    event-block is oak log:
+        break event-block
+        wait 20 seconds
+        set event-block to {_t}
+    event-block is birch log:
+        break event-block
+        wait 20 seconds
+        set event-block to {_t}
+    event-block is spruce log:
+        break event-block
+        wait 20 seconds
+        set event-block to {_t}
+    event-block is dark oak log:
+        break event-block
+        wait 20 seconds
+        set event-block to {_t}
+    event-block is jungle log:
+        break event-block
+        wait 20 seconds
+        set event-block to {_t}
+    event-block is acacia log:
+        break event-block
+        wait 20 seconds
+        set event-block to {_t}
+    event-block is any leaves:
+        set {_t} to type of event-block
+        break event-block
+        wait 5 seconds
+        set event-block to {_t}

@@ -1,0 +1,244 @@
+command /setspawn [<text>]:
+    permission: op
+    trigger:
+        arg is not set:
+            set {spawn} to location of block at player
+            send "&aSet spawn to your location!" to player
+        arg is "hubfromspider":
+            set {hubfromspider} to location of block at location of player
+            send "&aSet Spider-Hub spawn to your location!" to player
+        arg is "spiderfromhub":
+            set {spiderfromhub} to location of block at location of player
+            send "&aSet Hub-Spider spawn to your location!" to player
+        arg is "endfromspider":
+            set {endfromspider} to location of block at location of player
+            send "&aSet Spider-End spawn to your location!" to player
+        arg is "spiderfromend":
+            set {spiderfromend} to location of block at location of player
+            send "&aSet End-Spider spawn to your location!" to player
+        arg is "netherfromspider":
+            set {netherfromspider} to location of block at location of player
+            send "&aSet Spider-Nether spawn to your location!" to player
+        arg is "spiderfromnether":
+            set {spiderfromnether} to location of block at location of player
+            send "&aSet Nether-Spider spawn to your location!" to player
+        arg is "forestfromhub":
+            set {forestfromhub} to location of block at location of player
+            send "&aSet Spider-Nether spawn to your location!" to player
+        arg is "hubfromforest":
+            set {hubfromforest} to location of block at location of player
+            send "&aSet Nether-Spider spawn to your location!" to player
+        arg is "goldfromhub":
+            set {goldfromhub} to location of block at location of player
+            send "&aSet Hub-Gold spawn to your location!" to player
+        arg is "hubfromgold":
+            set {hubfromgold} to location of block at location of player
+            send "&aSet Gold-Hub spawn to your location!" to player
+        arg is "deepfromgold":
+            set {deepfromgold} to location of block at location of player
+            send "&aSet Gold-Deep spawn to your location!" to player
+        arg is "goldfromdeep":
+            set {goldfromdeep} to location of block at location of player
+            send "&aSet Deep-Gold spawn to your location!" to player
+        arg is "farmfromhub":
+            set {farmfromhub} to location of block at location of player
+            send "&aSet Hub-Farm spawn to your location!" to player
+        arg is "hubfromfarm":
+            set {hubfromfarm} to location of block at location of player
+            send "&aSet Farm-Hub spawn to your location!" to player
+        arg is "desertfromfarm":
+            set {desertfromfarm} to location of block at location of player
+            send "&aSet Farm-Desert spawn to your location!" to player
+        arg is "farmfromdesert":
+            set {farmfromdesert} to location of block at location of player
+            send "&aSet Desert-Farm spawn to your location!" to player
+
+command /hub:
+    trigger:
+        make player execute command "/server hub"
+
+command /spawn:
+    trigger:
+        send player title "&aStand Still" with subtitle "&aTeleporting in &e5 Seconds!" for 5 seconds
+        set {_t} to location of block at location of player
+        wait 5 seconds
+        set {_b} to location of block at location of player
+        {_t} = {_b}:
+            teleport player to {spawn}
+            send "&aTeleported to spawn!" to player
+            stop
+        else:
+            send "&cYou moved! Teleportation Canceled." to player
+
+command /addabove:
+    trigger:
+        loop blocks in radius 3 around player:
+            loop-block is slime block:
+                add location of loop-block to {above::*}
+
+command /addbelow:
+    trigger:
+        loop blocks in radius 3 around player:
+            loop-block is slime block:
+                add location of loop-block to {below::*}
+
+on step on slime block:
+    "%region at player%" contains "wood":
+        {below::*} contains location of block below player:
+            push player up at speed 2 
+            wait 10 ticks
+            push player down at speed 1
+            push player forward at speed 1
+        {above::*} contains location of block below player:
+            push player forward at speed 1
+        stop
+    play sound "BLOCK.PORTAL.TRAVEL" with volume 10 and pitch 1.5
+    "%region at player%" contains "hubspider":
+        execute console command "/speed walk 0 %player%"
+        apply slowness of tier 100 to player for 5 seconds
+        send title "&aTeleporting..." to player
+        wait 5 seconds
+        teleport player to {hubfromspider}
+        send title "&aTeleported to Hub" to player
+        execute console command "/speed walk 1 %player%"
+        stop
+    "%region at player%" contains "spiderhub":
+        execute console command "/speed walk 0 %player%"
+        apply slowness of tier 100 to player for 5 seconds
+        send title "&aTeleporting..." to player
+        wait 5 seconds
+        teleport player to {spiderfromhub}
+        send title "&aTeleported to Web" to player
+        execute console command "/speed walk 1 %player%"
+        stop
+    "%region at player%" contains "spiderend":
+        execute console command "/speed walk 0 %player%"
+        apply slowness of tier 100 to player for 5 seconds
+        send title "&aTeleporting..." to player
+        wait 5 seconds
+        teleport player to {endfromspider}
+        send title "&aTeleported to End" to player
+        execute console command "/speed walk 1 %player%"
+        stop
+    "%region at player%" contains "endspider":
+        execute console command "/speed walk 0 %player%"
+        apply slowness of tier 100 to player for 5 seconds
+        send title "&aTeleporting..." to player
+        wait 5 seconds
+        teleport player to {spiderfromend}
+        send title "&aTeleported to Web" to player
+        execute console command "/speed walk 1 %player%"
+        stop
+    "%region at player%" contains "spidernether":
+        execute console command "/speed walk 0 %player%"
+        apply slowness of tier 100 to player for 5 seconds
+        send title "&aTeleporting..." to player
+        wait 5 seconds
+        teleport player to {netherfromspider}
+        send title "&aTeleported to Nether" to player
+        execute console command "/speed walk 1 %player%"
+        stop
+    "%region at player%" contains "netherspider":
+        execute console command "/speed walk 0 %player%"
+        apply slowness of tier 100 to player for 5 seconds
+        send title "&aTeleporting..." to player
+        wait 5 seconds
+        teleport player to {spiderfromnether}
+        send title "&aTeleported to Web" to player
+        execute console command "/speed walk 1 %player%"
+        stop
+    "%region at player%" contains "hubforest":
+        execute console command "/speed walk 0 %player%"
+        apply slowness of tier 100 to player for 5 seconds
+        send title "&aTeleporting..." to player
+        wait 5 seconds
+        teleport player to {forestfromhub}
+        send title "&aTeleported to Forest" to player
+        execute console command "/speed walk 1 %player%"
+        stop
+    "%region at player%" contains "foresthub":
+        execute console command "/speed walk 0 %player%"
+        apply slowness of tier 100 to player for 5 seconds
+        send title "&aTeleporting..." to player
+        wait 5 seconds
+        teleport player to {hubfromforest}
+        send title "&aTeleported to Hub" to player
+        execute console command "/speed walk 1 %player%"
+        stop
+    "%region at player%" contains "hubgold":
+        execute console command "/speed walk 0 %player%"
+        apply slowness of tier 100 to player for 5 seconds
+        send title "&aTeleporting..." to player
+        wait 5 seconds
+        teleport player to {goldfromhub}
+        send title "&aTeleported to Mines" to player
+        execute console command "/speed walk 1 %player%"
+        stop
+    "%region at player%" contains "goldhub":
+        execute console command "/speed walk 0 %player%"
+        apply slowness of tier 100 to player for 5 seconds
+        send title "&aTeleporting..." to player
+        wait 5 seconds
+        teleport player to {hubfromgold}
+        send title "&aTeleported to Hub" to player
+        execute console command "/speed walk 1 %player%"
+        stop
+    "%region at player%" contains "goldeep":
+        execute console command "/speed walk 0 %player%"
+        apply slowness of tier 100 to player for 5 seconds
+        send title "&aTeleporting..." to player
+        wait 5 seconds
+        teleport player to {deepfromgold}
+        send title "&aTeleported to Caverns" to player
+        execute console command "/speed walk 1 %player%"
+        stop
+    "%region at player%" contains "deepgold":
+        execute console command "/speed walk 0 %player%"
+        apply slowness of tier 100 to player for 5 seconds
+        send title "&aTeleporting..." to player
+        wait 5 seconds
+        teleport player to {goldfromdeep}
+        send title "&aTeleported to Mines" to player
+        execute console command "/speed walk 1 %player%"
+        stop
+    "%region at player%" contains "hubfarm":
+        execute console command "/speed walk 0 %player%"
+        apply slowness of tier 100 to player for 5 seconds
+        send title "&aTeleporting..." to player
+        wait 5 seconds
+        teleport player to {farmfromhub}
+        send title "&aTeleported to Farm" to player
+        execute console command "/speed walk 1 %player%"
+        stop
+    "%region at player%" contains "farmhub":
+        execute console command "/speed walk 0 %player%"
+        apply slowness of tier 100 to player for 5 seconds
+        send title "&aTeleporting..." to player
+        wait 5 seconds
+        teleport player to {hubfromfarm}
+        send title "&aTeleported to Hub" to player
+        execute console command "/speed walk 1 %player%"
+        stop
+    "%region at player%" contains "farmdesert":
+        execute console command "/speed walk 0 %player%"
+        apply slowness of tier 100 to player for 5 seconds
+        send title "&aTeleporting..." to player
+        wait 5 seconds
+        teleport player to {desertfromfarm}
+        send title "&aTeleported to Desert" to player
+        execute console command "/speed walk 1 %player%"
+        stop
+    "%region at player%" contains "desertfarm":
+        execute console command "/speed walk 0 %player%"
+        apply slowness of tier 100 to player for 5 seconds
+        send title "&aTeleporting..." to player
+        wait 5 seconds
+        teleport player to {farmfromdesert}
+        send title "&aTeleported to Farm" to player
+        execute console command "/speed walk 1 %player%"
+        stop
+
+on any move:
+    block below player is slime block:
+        player has slowness:    
+            cancel event

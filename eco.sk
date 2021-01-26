@@ -1,0 +1,12 @@
+command /bal:
+    trigger:
+        set {_t} to player's balance
+        send "&aBalance: &c%{_t}%" to player
+
+command /balance:
+    trigger:
+        make player execute command "/bal"
+
+command /money:
+    trigger:
+        make player execute command "/bal"

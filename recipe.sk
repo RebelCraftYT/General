@@ -1,0 +1,30 @@
+ooon rightclick on crafting table:
+    cancel event
+    open chest inventory with 3 rows named "&aCrafting" to player
+    set slot (integers between 0 and 26) of player's current inventory to gray stained glass pane named " "
+    set slot 16 of player's current inventory to air
+    set slot (integers between 3 and 5 and integers between 12 and 14 and integers between 21 and 23) of player's current inventory to air
+
+on inventory click:
+    if inventory name of player's current inventory is "&aCrafting":
+        if slot 16 of player's current inventory is set:
+            if clicked slot is 16:
+                if clicked slot is set:
+                    set slot (integers between 3 and 5 and integers between 12 and 14 and integers between 21 and 23) of player's current inventory to air
+        if clicked slot is 0,1,2,6,7,8,9,10,11,15,17,18,19,20,24,25 or 26:
+            cancel event
+        clicked slot is 3,4,5,12,13,14,21,22 or 23:
+            wait 1 tick
+            set {_n} to clicked slot
+            set {_blots::*} to slots 3,5,12,13,14,21,22 and 23 of player's current inventory
+            remove {_n} from {_blots}
+            if slot {_blots::*} of current inventory of player is coal:
+                set {_t} to leather chestplate
+                set slot 16 of player's current inventory to leather chestplate
+                send "YES" to player
+
+on inventory close:
+    name of player's inventory is "&aCrafting":
+        give player slot 3,4,5,12,13,14,21,22,16 and 23 of player's current inventory
+        give player {slots.%player%::*}
+        clear {slots.%player%::*}

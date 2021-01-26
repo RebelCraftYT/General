@@ -1,0 +1,51 @@
+command /bank:
+    trigger:
+        open virtual chest inventory with size 3 named "&aBank" to player
+        format gui slot 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 and 26 of player with gray stained glass pane named " "
+        format gui slot 11 of player with chest named "&aDeposit Coins" to run:
+            open virtual chest inventory with size 3 named "&aDeposit Coins" to player
+            format gui slot 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 and 26 of player with gray stained glass pane named " "
+            format gui slot 11 of player with chest named "&aDeposit 20%%" to run:
+                set {_b} to player's balance / 5
+                remove {_b} from player's balance
+                add {_b} to {bank.%player%}
+                close player's inventory
+                send "&aDeposited %{_b}% &a(20%%) to your bank. You now have %{bank.%player%}% &aCoins in your bank!" to player
+            format gui slot 13 of player with 32 chest named "&aDeposit 50%%" to run:
+                set {_b} to player's balance / 2
+                remove {_b} from player's balance
+                add {_b} to {bank.%player%}
+                close player's inventory
+                send "&aDeposited %{_b}% &a(50%%) to your bank. You now have %{bank.%player%}% &aCoins in your bank!" to player
+            format gui slot 15 of player with 64 chest named "&aDeposit All Coins" to run:
+                set {_b} to player's balance
+                remove {_b} from player's balance
+                add {_b} to {bank.%player%}
+                close player's inventory
+                send "&aDeposited %{_b}% &a(100%%) to your bank. You now have %{bank.%player%}% &aCoins in your bank!" to player
+            format gui slot 22 of player with barrier named "&aBack" to run:
+                make player execute command "/bank"
+        format gui slot 13 of player with dropper named "&aWithdraw Coins" to run:
+            open virtual chest inventory with size 3 named "&aWithdraw Coins" to player
+            format gui slot 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 and 26 of player with gray stained glass pane named " "
+            format gui slot 11 of player with dropper named "&aWithdraw 20%%" to run:
+                set {_b} to {bank.%player%} / 5
+                remove {_b} from {bank.%player%}
+                add {_b} to player's balance
+                close player's inventory
+                send "&aWithdrawed %{_b}% &a(20%%) from your bank. You now have %{bank.%player%}% &aCoins in your bank!" to player
+            format gui slot 13 of player with 32 dropper named "&aWithdraw 50%%" to run:
+                set {_b} to {bank.%player%} / 2
+                remove {_b} from {bank.%player%}
+                add {_b} to player's balance
+                close player's inventory
+                send "&aWithdrawed %{_b}% &a(50%%) to your bank. You now have %{bank.%player%}% &aCoins in your bank!" to player
+            format gui slot 15 of player with 64 dropper named "&aWithdraw All Coins" to run:
+                set {_b} to {bank.%player%}
+                remove {_b} from {bank.%player%}
+                add {_b} to player's balance
+                close player's inventory
+                send "&aWithdrawed %{_b}% &a(100%%) to your bank. You now have %{bank.%player%}% &aCoins in your bank!" to player
+            format gui slot 22 of player with barrier named "&aBack" to run:
+                make player execute command "/bank"
+        format gui slot 15 of player with gold ingot named "&aBank Balance: %{bank.%player%}%"
